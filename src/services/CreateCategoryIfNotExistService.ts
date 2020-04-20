@@ -5,7 +5,7 @@ import Category from '../models/Category';
 interface Request {
   title: string;
 }
-class CreateTransactionService {
+class CreateCategoryIfNotExistService {
   public async execute({ title }: Request): Promise<Category> {
     const categoriesRepository = getRepository(Category);
     const findCategory = await categoriesRepository.findOne({
@@ -16,10 +16,10 @@ class CreateTransactionService {
       return findCategory;
     }
 
-    const category = await categoriesRepository.create({ title });
+    const category = categoriesRepository.create({ title });
     await categoriesRepository.save(category);
     return category;
   }
 }
 
-export default CreateTransactionService;
+export default CreateCategoryIfNotExistService;

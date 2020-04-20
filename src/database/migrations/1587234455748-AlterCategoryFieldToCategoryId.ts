@@ -8,7 +8,6 @@ import {
 export default class AlterCategoryFieldToCategoryId1587234455748
   implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropColumn('transactions', 'category');
     await queryRunner.addColumn(
       'transactions',
       new TableColumn({
@@ -33,12 +32,5 @@ export default class AlterCategoryFieldToCategoryId1587234455748
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropForeignKey('transactions', 'TransactionCategory');
     await queryRunner.dropColumn('transactions', 'category_id');
-    await queryRunner.addColumn(
-      'transactions',
-      new TableColumn({
-        name: 'category',
-        type: 'varcahr',
-      }),
-    );
   }
 }

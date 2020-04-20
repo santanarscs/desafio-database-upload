@@ -1,10 +1,13 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
   Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import Category from './Category';
 
 @Entity('transactions')
 class Transaction {
@@ -16,6 +19,10 @@ class Transaction {
 
   @Column()
   type: 'income' | 'outcome';
+
+  @ManyToOne(() => Category, category => category.transaction, { eager: true })
+  @JoinColumn({ name: 'category_id' })
+  category: Category;
 
   @Column('integer')
   value: number;
